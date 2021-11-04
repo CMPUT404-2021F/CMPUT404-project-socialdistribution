@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 
+from .forms import CustomUserCreationForm
 from .models import Post
 
 # Create your views here.
@@ -12,7 +13,7 @@ class IndexView(generic.TemplateView):
 
 class SignUpView(generic.CreateView):
     # https://learndjango.com/tutorials/django-signup-tutorial
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
