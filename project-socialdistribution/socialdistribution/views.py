@@ -21,6 +21,10 @@ class CreatePostView(generic.CreateView):
     fields = ['title', 'text']
     success_url = "/timeline/"
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user.username
+        return super().form_valid(form)
+
 @login_required
 def dashboard(request):
     template_name = "socialdistribution/dashboard.html"
