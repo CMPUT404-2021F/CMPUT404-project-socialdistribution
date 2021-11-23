@@ -1,0 +1,20 @@
+{% extends 'socialdistribution/base_logged_in.html' %}
+
+{% block title %}Timeline{% endblock %}
+
+{% block content %}
+    <div class="card m-3 card_post">
+        <div class="card-body">
+        <h5 class="card-title">{{ object.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ object.date_created }} - {{ object.created_by }}</h6>
+        <p class="card-text">{{ object.text }}</p>
+        <a href="#" class="card-link">Like</a>
+        <a href="#" class="card-link">Share</a>
+        <a href="#" class="card-link">Comment</a>
+        {% if object.created_by == user.username %}
+            <a class="card-link" href="{% url 'socialdistribution:post-update' object.id %}">Edit</a>
+            <a class="card-link" href="{% url 'socialdistribution:post-delete' object.id %}">Delete</a>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

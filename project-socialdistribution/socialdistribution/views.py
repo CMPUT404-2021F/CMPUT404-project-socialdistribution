@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .forms import CustomUserCreationForm
 from .models import Post
@@ -17,7 +18,7 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
-class CreatePostView(generic.CreateView):
+class CreatePostView(LoginRequiredMixin, generic.CreateView):
     model = Post
     fields = ['title', 'text']
     success_url = "/timeline/"
@@ -25,6 +26,30 @@ class CreatePostView(generic.CreateView):
     def form_valid(self, form):
         form.instance.created_by = self.request.user.username
         return super().form_valid(form)
+
+class UpdatePostView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    model = Post
+    fields = ['title', 'text']
+    success_url = "/timeline/"
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user.username
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user.username == post.created_by
+
+class DetailPostView(LoginRequiredMixin, generic.DetailView):
+    model = Post
+
+class DeletePostView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = Post
+    success_url = "/timeline/"
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user.username == post.created_by
 
 @login_required
 def dashboard(request):

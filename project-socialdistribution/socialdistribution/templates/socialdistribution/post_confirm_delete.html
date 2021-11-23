@@ -1,0 +1,19 @@
+{% extends 'socialdistribution/base_logged_in.html' %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block content %}
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Delete Post</legend>
+                <h2>Confirm you want to delete the post "{{ object.title }}"</h2>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-secondary" type="submit">Delete</button>
+                <a class="btn btn-secondary" href="{% url 'socialdistribution:post-detail' object.id %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
