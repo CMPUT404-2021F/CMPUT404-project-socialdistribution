@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -57,12 +58,20 @@ def dashboard(request):
     context = {'current_user': request.user}
     return render(request, template_name, context)
 
-@login_required
-def timeline(request):
+class TimelineListView(LoginRequiredMixin, generic.ListView):
+    model = Post
     template_name = "socialdistribution/timeline.html"
-    latest_post_list = Post.objects.order_by('-date_created')[:5]
-    context = {'current_user': request.user, 'latest_post_list': latest_post_list}
-    return render(request, template_name, context)
+    context_object_name = 'posts'
+    ordering = ['-date_created']
+    paginate_by = 5
+
+    # code inspired by furas from https://stackoverflow.com/questions/69474138/django-cant-get-the-get-response-value-attributeerror-module-django-http-r?noredirect=1&lq=1
+    def get_context_data(self, **kwargs):
+        if 'size' in self.request.GET:
+            self.paginate_by = self.request.GET.get('size', 5)
+        
+        context = super().get_context_data(**kwargs)
+        return context
 
 @login_required
 def profile(request):
