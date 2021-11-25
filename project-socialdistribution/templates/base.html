@@ -24,20 +24,20 @@
         <div id="navbar_div">
             <nav class="navbar navbar-expand-lg navbar-light bg-dark">
                 <div class="container-fluid">
-                <a class="navbar-brand text-white" href="{% url 'socialdistribution:dashboard' %}">Dashboard</a>
+                <a class="navbar-brand text-white" href="{% url 'dashboard' %}">Dashboard</a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link text-white"href="{% url 'socialdistribution:profile' %}">Profile</a>
+                        <a class="nav-link text-white"href="{% url 'profile' %}">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'socialdistribution:inbox' %}">Inbox</a>
+                        <a class="nav-link text-white" href="{% url 'inbox' %}">Inbox</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'socialdistribution:post:post_list' %}">Posts</a>
+                        <a class="nav-link text-white" href="{% url 'post:post_list' %}">Posts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color:blue" href="{% url 'socialdistribution:post:post_new' %}">+New</a>
+                        <a class="nav-link" style="color:blue" href="{% url 'post:post_new' %}">+New</a>
                     </li>
                     </ul>
                     <a class="nav-link text-white" href="{% url 'logout' %}">Log Out</a>

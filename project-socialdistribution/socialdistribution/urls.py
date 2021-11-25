@@ -4,7 +4,7 @@ from .views import IndexView, SignUpView
 from .views import dashboard, profile, inbox
 
 
-app_name = "socialdistribution"
+
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('signup/', SignUpView.as_view(), name='signup'),
