@@ -39,5 +39,5 @@ class PostCreateView(CreateView):
     context_object_name = "post"
 
     def form_valid(self, form):
-        form.instance.created_by = self.request.user.username
+        form.instance.author = self.request.user
         return super().form_valid(form)

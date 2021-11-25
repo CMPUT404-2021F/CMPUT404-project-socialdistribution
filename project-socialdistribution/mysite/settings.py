@@ -39,11 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'socialdistribution.apps.SocialdistributionConfig',
     'post.apps.PostConfig',
+    'accounts.apps.AccountsConfig',
     'rest_framework',
     'crispy_forms',
 ]
 
-AUTH_USER_MODEL = 'socialdistribution.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,11 +1,12 @@
 from django.db import models
 from django.utils import timezone
 from django.shortcuts import reverse
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 class Post(models.Model):
     date = models.DateTimeField(default=timezone.now)
-    author = models.CharField(max_length=200, default="Author")
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='posts')
     title = models.CharField(max_length=200, default="Title")
     text = models.TextField()
 
