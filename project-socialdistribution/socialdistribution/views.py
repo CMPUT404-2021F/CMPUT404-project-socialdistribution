@@ -1,30 +1,23 @@
 from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 
 from .forms import CustomUserCreationForm
-from .models import Post
 
 # Create your views here.
-class IndexView(generic.TemplateView):
+class IndexView(TemplateView):
     template_name = "socialdistribution/index.html"
 
-class SignUpView(generic.CreateView):
+class SignUpView(CreateView):
     # https://learndjango.com/tutorials/django-signup-tutorial
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
-class CreatePostView(generic.CreateView):
-    model = Post
-    fields = ['title', 'text']
-    success_url = "/timeline/"
 
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user.username
-        return super().form_valid(form)
+
 
 @login_required
 def dashboard(request):
@@ -32,12 +25,6 @@ def dashboard(request):
     context = {'current_user': request.user}
     return render(request, template_name, context)
 
-@login_required
-def timeline(request):
-    template_name = "socialdistribution/timeline.html"
-    latest_post_list = Post.objects.order_by('-date_created')[:5]
-    context = {'current_user': request.user, 'latest_post_list': latest_post_list}
-    return render(request, template_name, context)
 
 @login_required
 def profile(request):

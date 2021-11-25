@@ -1,14 +1,15 @@
-from django.urls import path
+from django.urls import path, include
 
-from . import views
+from .views import IndexView, SignUpView
+from .views import dashboard, profile, inbox
+
 
 app_name = "socialdistribution"
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
-    path('signup/', views.SignUpView.as_view(), name='signup'),
-    path('dashboard/', views.dashboard, name='dashboard'),
-    path('timeline/', views.timeline, name='timeline'),
-    path('profile/', views.profile, name='profile'),
-    path('inbox/', views.inbox, name='inbox'),
-    path('create-post/', views.CreatePostView.as_view(), name='create-post'),
+    path('', IndexView.as_view(), name='index'),
+    path('signup/', SignUpView.as_view(), name='signup'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('profile/', profile, name='profile'),
+    path('inbox/', inbox, name='inbox'),
+    path('posts/', include("post.urls", namespace = 'post')),
 ]
