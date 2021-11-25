@@ -4,34 +4,43 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = "post/post_list.html"
     context_object_name = "post_list"
 
-    #ordering = ["-date"]
+    ordering = ["-date"]
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "post/post_detail.html"
     context_object_name = "post"
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     template_name = "post/post_update.html"
     fields = ('title', 'text')
     context_object_name = "post"
 
-class PostDeleteView(DeleteView):
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = "post/post_delete.html"
     success_url = reverse_lazy("post:post_list")
     context_object_name = "post"
 
-class PostCreateView(CreateView):
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = "post/post_new.html"
     fields = ('title', 'text')
