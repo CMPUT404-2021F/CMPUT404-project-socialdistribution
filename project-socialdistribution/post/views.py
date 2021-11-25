@@ -28,14 +28,14 @@ class PostUpdateView(UpdateView):
 class PostDeleteView(DeleteView):
     model = Post
     template_name = "post/post_delete.html"
-    success_url = reverse_lazy("socialdistribution:post:post_list")
+    success_url = reverse_lazy("post:post_list")
     context_object_name = "post"
 
 class PostCreateView(CreateView):
     model = Post
     template_name = "post/post_new.html"
     fields = ('title', 'text')
-    success_url = reverse_lazy("socialdistribution:post:post_list")
+    success_url = reverse_lazy("post:post_list")
     context_object_name = "post"
 
     def form_valid(self, form):

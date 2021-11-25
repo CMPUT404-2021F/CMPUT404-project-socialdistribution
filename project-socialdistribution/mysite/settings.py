@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'socialdistribution.apps.SocialdistributionConfig',
     'post.apps.PostConfig',
+    'rest_framework',
     'crispy_forms',
 ]
 
