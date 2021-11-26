@@ -3,8 +3,9 @@
 {% block title %}Post List{% endblock title %}
 
 {% block content %}
+    <div class="card-columns">
     {% for post in post_list %}
-        <div class="card">
+        <div class="card bg-light text-dark">
             <div class="card-header">
                 <span class="font-weight-bold"><a href="{% url 'post:post_detail' post.pk %}">{{ post.title }}</a></span> &middot;
                 <span class="text-muted">by {{ post.author }} | {{ post.date }}</span>
@@ -13,10 +14,11 @@
                 {{ post.text }}
             </div>
             <div class="card-footer text-center text-muted">
-                <a href="{% url 'post:post_update' post.pk %}">Edit</a> |
-                <a href="{% url 'post:post_delete' post.pk %}">Delete</a>
+                <a class="btn btn-primary" href="{% url 'post:post_update' post.pk %}">Edit</a> 
+                <a class="btn btn-primary" href="{% url 'post:post_delete' post.pk %}">Delete</a>
             </div>
         </div>
         <br />
     {% endfor %}
+    </div>
 {% endblock %} 
