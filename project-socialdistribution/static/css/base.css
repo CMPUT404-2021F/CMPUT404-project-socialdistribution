@@ -31,5 +31,12 @@
 #background_div {
     width: 100%;
     height: 100%;
+    background-color: rgb(209, 245, 242);
 }
 
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+}

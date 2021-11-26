@@ -2,16 +2,19 @@
 
 {% block content %}
     <div class="article-entry">
-        <h2>{{ post.title }}</h2>
+        <h1>{{ post.title }}</h1>
         <p>by {{ post.author }} | {{ post.date }}</p>
         <p>{{ post.body }}</p>
     </div>
 
-    <p><a href="{% url 'post:post_update' post.pk %}">Edit</a> |
-        <a href="{% url 'post:post_delete' post.pk %}">Delete</a></p>
-    <p>Back to <a href="{% url 'post:post_list' %}">All Posts</a>.</p>
-
     <a href="#" class="card-link">Like</a>
     <a href="#" class="card-link">Share</a>
     <a href="#" class="card-link">Comment</a>
+    
+    <p><a class="btn btn-primary" href="{% url 'post:post_update' post.pk %}">Edit</a> 
+        <a class="btn btn-primary" href="{% url 'post:post_delete' post.pk %}">Delete</a>
+    <a class="btn btn-primary" href="{% url 'post:post_list' %}">Back</a></p>
+    
+
+    
 {% endblock content %}
